@@ -3,9 +3,8 @@
     <table class="full-width">
       <thead>
         <tr>
-          <th>Dates</th>
+          <th>Schedule</th>
           <th>Country</th>
-          <th>Logo</th>
           <th>Convention</th>
           <th>Location</th>
           <th>Homepage</th>
@@ -13,23 +12,26 @@
       </thead>
       <tbody>
         <tr>
-          <td>2025.2.22 - 23</td>
+          <td>02/22/2025 - 02/23/2025</td>
           <td>kor</td>
-          <td>FurryJoaLogo</td>
           <td>FurryJoa</td>
           <td>FurryJoaLocation</td>
-          <td>FurryJoaHomePage</td>
+          <td><home-icon class="icon-box" /></td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import HomeIcon from '@/components/icons/HomeIcon.vue'
+import FlagIcon from '@/components/icons/FlagIcon.vue'
+import ScheduleIcon from '@/components/icons/ScheduleIcon.vue'
+</script>
 
 <style scoped>
 .list-box {
-  width: 90%;
+  width: 100%;
 }
 
 table {
@@ -50,10 +52,16 @@ td,
 th {
   padding: 1em 0.5em;
   vertical-align: middle;
+  text-align: center;
 }
 
 th {
   background-color: rgb(193, 232, 197);
   color: black;
+}
+.icon-box {
+  width: 2em;
+  height: 2em;
+  margin: 10px;
 }
 </style>
