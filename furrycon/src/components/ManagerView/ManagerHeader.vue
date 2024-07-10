@@ -3,6 +3,9 @@
     <div class="flex-center name-box">
       <h1>FurryCon World</h1>
     </div>
+    <div>
+      <h2>Manager</h2>
+    </div>
   </div>
 </template>
 

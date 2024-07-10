@@ -1,5 +1,5 @@
 <template>
-  <header class="">
+  <header>
     <div class="flex-center header-box component-margin symbol-bg-color">
       <home-header class="content-width" />
     </div>

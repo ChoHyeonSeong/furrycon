@@ -17,3 +17,11 @@ textarea {
   background: transparent;
   resize: none;
 }
+a:link {
+  text-decoration: none;
+  outline: none;
+}
+a:visited,
+a:active {
+  color: black;
+}
