@@ -6,6 +6,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,13 +21,8 @@ public class ConventionDAOImpl implements ConventionDAO{
     }
 
     @Override
-    public Slice<ConventionEntity> readConventions(String countryCode, Date startDate, Date endDate, boolean confirmedLocation, Pageable pageable) {
-        Specification<ConventionEntity> spec = Specification
-                .where(ConventionSpecification.withCountryCodeEqual(countryCode))
-                .and(ConventionSpecification.withScheduleBetween(startDate, endDate));
-        if(confirmedLocation)
-            spec = spec.and(ConventionSpecification.withLocationIsNotNull());
-        return repo.findAll(spec,pageable);
+    public Slice<ConventionEntity> readConventions(String countryCode, LocalDate startDate, LocalDate endDate, boolean confirmedLocation, Pageable pageable) {
+        return repo.findConventions(countryCode, startDate, endDate, confirmedLocation, pageable);
     }
 
     @Override

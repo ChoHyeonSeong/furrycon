@@ -8,6 +8,7 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ConventionServiceImpl implements ConventionService {
     }
 
     @Override
-    public Slice<ConventionDTO> readConventions(String countryCode, Date startDate, Date endDate, boolean confirmedLocation, Pageable pageable) {
+    public Slice<ConventionDTO> readConventions(String countryCode, LocalDate startDate, LocalDate endDate, boolean confirmedLocation, Pageable pageable) {
         return conventionDAO.readConventions(countryCode,startDate,endDate,confirmedLocation,pageable).map(e->mapper.map(e, ConventionDTO.class));
     }
 
