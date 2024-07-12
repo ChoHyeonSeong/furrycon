@@ -5,10 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ConventionController {
     private final ConventionService conventionService;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @GetMapping("/conventions")
     public Slice<ConventionDTO> readAllConvention(@PageableDefault(page = 0, size = 10, sort = "startDate", direction = Sort.Direction.ASC) Pageable pageable) {
@@ -24,15 +26,19 @@ public class ConventionController {
 
     @GetMapping("/convention")
     public Slice<ConventionDTO> readConventions(
-            @RequestParam String countryCode,
-            @RequestParam Date startDate,
-            @RequestParam Date endDate,
-            @RequestParam(defaultValue = "false") boolean confirmedLocation,
-            @PageableDefault(page = 0, size = 10, sort = "startDate", direction = Sort.Direction.ASC) Pageable pageable) {
-        return conventionService.readConventions(countryCode,startDate,endDate,confirmedLocation,pageable);
+            @PageableDefault(page = 0, size = 10, sort = "startDate", direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(required = false) String countryCode,
+            @RequestParam(required = false)  String startDate,
+            @RequestParam(required = false)  String endDate,
+            @RequestParam(defaultValue = "false") boolean confirmedLocation) {
+        System.out.println(startDate);
+        System.out.println(endDate);
+        return conventionService.readConventions(countryCode,LocalDate.parse(startDate),LocalDate.parse(endDate),confirmedLocation,pageable);
     }
 
-    public String createConvention(ConventionDTO conventionDTO) {
-
+    @PostMapping("/convention")
+    public String createConvention(@RequestBody ConventionDTO convention) {
+        conventionService.createConvention(convention);
+        return "OK";
     }
 }

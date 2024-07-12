@@ -11,13 +11,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>02/22/2025 - 02/23/2025</td>
-          <td>kor</td>
-          <td>FurryJoa</td>
-          <td>FurryJoaLocation</td>
-          <td><home-icon class="icon-box" /></td>
-        </tr>
+        <template v-for="(convention, i) in conventionStore.conventions" :key="i">
+          <tr>
+            <td>{{ convention.startDate }} - {{ convention.endDate }}</td>
+            <td>{{ convention.countryCode }}</td>
+            <td>{{ convention.name }}</td>
+            <td>{{ convention.location }}</td>
+            <td>
+              <a :href="convention.homepageUrl"><home-icon class="icon-box" /></a>
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
   </div>
@@ -25,8 +29,11 @@
 
 <script setup lang="ts">
 import HomeIcon from '@/components/icons/HomeIcon.vue'
-import FlagIcon from '@/components/icons/FlagIcon.vue'
-import ScheduleIcon from '@/components/icons/ScheduleIcon.vue'
+import { useConventionStore } from '@/stores/convention'
+
+const conventionStore = useConventionStore()
+
+conventionStore.resetConventions()
 </script>
 
 <style scoped>

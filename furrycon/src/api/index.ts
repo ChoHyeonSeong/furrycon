@@ -21,9 +21,4 @@ function createDefaultInstance() {
   return instance
 }
 
-export const user = createInstance('user')
-export const vark = createInstanceWithAuth('vark')
-export const account = createInstanceWithAuth('account')
-export const notify = createInstanceWithAuth('notify')
-export const receiver = createInstanceWithAuth('receiver')
-export const defaultInst = createDefaultInstance()
+export const instance = createDefaultInstance()

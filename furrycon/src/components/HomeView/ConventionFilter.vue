@@ -16,7 +16,8 @@
         class="date-picker-box full-height"
         v-if="scheduleSelected"
         v-model="dateRange"
-        model-type="iso"
+        @update:model-value="updateDateRange"
+        model-type="yyyy-MM-dd"
         :enable-time-picker="false"
         range
       />
@@ -35,8 +36,8 @@
         class="input-box country-box"
         type="country"
         v-if="countrySelected"
-        v-model="countryCode"
         placeholder="Select Country"
+        @change="updateCountryCode"
       />
     </div>
     <div class="btn-box flex">
@@ -44,7 +45,7 @@
         type="button"
         class="flex-center btn full-box"
         :class="confirmedLocationSelected ? 'symbol-bg-color' : 'btn-bg-color'"
-        @click="selectFilter(2)"
+        @click="selectFilter(2), updateConfirmedLocation()"
       >
         <plus-icon class="icon-box" />
         confirmed location
@@ -55,33 +56,50 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import CountryIcon from '@/components/icons/CountryIcon.vue'
 import ScheduleIcon from '@/components/icons/ScheduleIcon.vue'
 import PlusIcon from '@/components/icons/PlusIcon.vue'
 import FlagIcon from '@/components/icons/FlagIcon.vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+import { useConventionStore } from '@/stores/convention'
 
 const scheduleSelected = ref(false)
 const countrySelected = ref(false)
 const confirmedLocationSelected = ref(false)
 const dateRange = ref()
 const countryCode = ref()
+const conventionStore = useConventionStore()
 
 function selectFilter(filter: number) {
   switch (filter) {
     case 0:
       scheduleSelected.value = !scheduleSelected.value
-      if (!scheduleSelected.value) dateRange.value = null
+      if (!scheduleSelected.value) updateDateRange(null)
       break
     case 1:
       countrySelected.value = !countrySelected.value
-      if (!countrySelected.value) countryCode.value = null
+      if (!countrySelected.value) updateCountryCode(null)
       break
     case 2:
       confirmedLocationSelected.value = !confirmedLocationSelected.value
       break
   }
+}
+
+function updateDateRange(range: string[]) {
+  dateRange.value = range
+  if (range) conventionStore.setScheduleFilter(range[0], range[1])
+  else conventionStore.resetScheduleFilter()
+}
+
+function updateCountryCode(code: Object) {
+  countryCode.value = code
+  if (code) conventionStore.setCountryCodeFilter(code.iso2)
+  else conventionStore.resetCountryCodeFilter()
+}
+
+function updateConfirmedLocation() {
+  conventionStore.setConfirmedLocationFilter(confirmedLocationSelected.value)
 }
 </script>
 
