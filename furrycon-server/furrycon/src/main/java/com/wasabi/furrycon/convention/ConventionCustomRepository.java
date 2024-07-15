@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public interface ConventionCustomRepository {
-    Slice<ConventionEntity> findConventions(String countryCode, LocalDate startDate, LocalDate endDate, boolean confirmedLocation, Pageable pageable);
+    Slice<ConventionEntity> findConventions(String countryCode, LocalDate startDate, LocalDate endDate, Boolean confirmedLocation, Pageable pageable);
 }

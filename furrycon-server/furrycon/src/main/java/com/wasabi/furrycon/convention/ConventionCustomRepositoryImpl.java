@@ -18,7 +18,7 @@ public class ConventionCustomRepositoryImpl implements ConventionCustomRepositor
     private final JPAQueryFactory factory;
 
     @Override
-    public Slice<ConventionEntity> findConventions(String countryCode, LocalDate startDate, LocalDate endDate, boolean confirmedLocation, Pageable pageable) {
+    public Slice<ConventionEntity> findConventions(String countryCode, LocalDate startDate, LocalDate endDate, Boolean confirmedLocation, Pageable pageable) {
         List<ConventionEntity> conventions =factory
                 .selectFrom(conventionEntity)
                 .where(eqCountryCode(countryCode),
@@ -42,8 +42,8 @@ public class ConventionCustomRepositoryImpl implements ConventionCustomRepositor
         return null;
     }
 
-    private BooleanExpression notNullLocation(boolean confirmedLocation) {
-        if(confirmedLocation)
+    private BooleanExpression notNullLocation(Boolean confirmedLocation) {
+        if(confirmedLocation != null && confirmedLocation)
             return conventionEntity.location.isNotNull();
         return null;
     }

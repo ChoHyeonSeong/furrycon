@@ -16,6 +16,9 @@
 import ConventionList from '@/components/HomeView/ConventionList.vue'
 import ConventionFilter from '@/components/HomeView/ConventionFilter.vue'
 import HomeHeader from '@/components/HomeView/HomeHeader.vue'
+import { testConnection } from '@/api/convention'
+
+testConnection('테스트 연결!')
 </script>
 
 <style scoped>
