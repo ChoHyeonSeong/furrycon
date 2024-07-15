@@ -8,14 +8,18 @@ function readConventions(
   confirmedLocation?: boolean
 ) {
   let queryStr = '?page=' + pageNum
-  if (countryCode !== '') queryStr += '&countryCode=' + countryCode
-  if (startDate && endDate) queryStr += '&startDate=' + startDate + '&endDate=' + endDate
-  if (confirmedLocation) queryStr += '&confirmedLocation=' + confirmedLocation
-  return instance.get('convention' + queryStr)
+  if (countryCode !== '') queryStr += '&country_code=' + countryCode
+  if (startDate && endDate) queryStr += '&start_date=' + startDate + '&end_date=' + endDate
+  if (confirmedLocation) queryStr += '&confirmed_location=' + confirmedLocation
+  return instance.get('api/convention' + queryStr)
 }
 
 function createConvention(convention: RequestConvention) {
-  instance.post('convention', convention)
+  instance.post('api/convention', convention)
+}
+
+function testConnection(msg: string) {
+  instance.get('api/test?msg=' + msg)
 }
 
 interface RequestConvention {
@@ -36,6 +40,6 @@ interface ResponseConvention {
   homepageUrl: string
 }
 
-export { readConventions, createConvention }
+export { readConventions, createConvention, testConnection }
 
 export type { RequestConvention, ResponseConvention }

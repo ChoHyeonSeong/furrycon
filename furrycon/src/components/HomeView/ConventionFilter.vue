@@ -74,11 +74,11 @@ function selectFilter(filter: number) {
   switch (filter) {
     case 0:
       scheduleSelected.value = !scheduleSelected.value
-      if (!scheduleSelected.value) updateDateRange(null)
+      if (!scheduleSelected.value) updateDateRange()
       break
     case 1:
       countrySelected.value = !countrySelected.value
-      if (!countrySelected.value) updateCountryCode(null)
+      if (!countrySelected.value) updateCountryCode()
       break
     case 2:
       confirmedLocationSelected.value = !confirmedLocationSelected.value
@@ -86,13 +86,13 @@ function selectFilter(filter: number) {
   }
 }
 
-function updateDateRange(range: string[]) {
+function updateDateRange(range?: string[]) {
   dateRange.value = range
   if (range) conventionStore.setScheduleFilter(range[0], range[1])
   else conventionStore.resetScheduleFilter()
 }
 
-function updateCountryCode(code: Object) {
+function updateCountryCode(code?: { iso2: string }) {
   countryCode.value = code
   if (code) conventionStore.setCountryCodeFilter(code.iso2)
   else conventionStore.resetCountryCodeFilter()

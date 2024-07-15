@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ConventionController {
     private final ConventionService conventionService;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @GetMapping("/conventions")
     public Slice<ConventionDTO> readAllConvention(@PageableDefault(page = 0, size = 10, sort = "startDate", direction = Sort.Direction.ASC) Pageable pageable) {
@@ -27,10 +26,10 @@ public class ConventionController {
     @GetMapping("/convention")
     public Slice<ConventionDTO> readConventions(
             @PageableDefault(page = 0, size = 10, sort = "startDate", direction = Sort.Direction.ASC) Pageable pageable,
-            @RequestParam(required = false) String countryCode,
-            @RequestParam(required = false)  String startDate,
-            @RequestParam(required = false)  String endDate,
-            @RequestParam(defaultValue = "false") boolean confirmedLocation) {
+            @RequestParam(name="country_code",required = false) String countryCode,
+            @RequestParam(name="start_date",required = false)  String startDate,
+            @RequestParam(name="end_date",required = false)  String endDate,
+            @RequestParam(name="confirmed_location",required = false) Boolean confirmedLocation) {
         System.out.println(startDate);
         System.out.println(endDate);
         return conventionService.readConventions(countryCode,LocalDate.parse(startDate),LocalDate.parse(endDate),confirmedLocation,pageable);
@@ -40,5 +39,10 @@ public class ConventionController {
     public String createConvention(@RequestBody ConventionDTO convention) {
         conventionService.createConvention(convention);
         return "OK";
+    }
+
+    @GetMapping("/test")
+    public String testConnect(@RequestParam String msg) {
+        return msg+" : OK";
     }
 }
