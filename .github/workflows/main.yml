@@ -40,7 +40,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: build-artifacts
-        path: build/libs/
+        path: ./furrycon-server/furrycon/build/libs/*.jar
   
   frontend-build:
     runs-on: ubuntu-latest
@@ -78,4 +78,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: production-build
-        path: ./
+        path: ./furrycon/dist
