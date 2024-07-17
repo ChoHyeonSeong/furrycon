@@ -1,13 +1,10 @@
 name: Build Frontend and Backend
 
-on:
-  push:
-    branches:
-      - main
 
-permissions:
-  contents: write  # Ensuring the GITHUB_TOKEN has write permission
-      
+on:
+  workflow_dispatch:
+
+    
 jobs:
   backend-build:
     runs-on: ubuntu-latest

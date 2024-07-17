@@ -30,3 +30,11 @@ jobs:
         with:
           branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger second workflow
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v4+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/second-workflow.yml/dispatches \
+            -d '{"ref":"main"}'
