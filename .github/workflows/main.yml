@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout main branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: 'main'
           fetch-depth: '0'
@@ -29,4 +29,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           branch: main
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          gihthub_token: ${{ secrets.GITHUB_TOKEN }}
