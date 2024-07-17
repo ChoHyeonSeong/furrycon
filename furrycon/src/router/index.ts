@@ -9,6 +9,7 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue')
     },
     {
+      // 매니저 페이지
       path: '/wasabi/970917',
       name: 'manager',
       component: () => import('../views/ManagerView.vue'),
