@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+
+permissions:
+  contents: write  # Ensuring the GITHUB_TOKEN has write permission
       
 jobs:
   backend-build:
