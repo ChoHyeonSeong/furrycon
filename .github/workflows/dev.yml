@@ -1,0 +1,32 @@
+name: Merge Dev to Main
+
+on:
+  push:
+    branches:
+      - dev
+      
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+          fetch-depth: '0'
+
+      - name: Configure Git
+        run: |
+          git config user.name ChoHyeonSeong
+          git config user.email johs970917@gmail.com
+
+      - name: Merge dev branch
+        run: |
+          git merge origin/dev --no-edit
+
+      - name: Push changes to main branch
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
