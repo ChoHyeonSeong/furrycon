@@ -10,23 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout mina branch
+      - name: Checkout main branch
         uses: actions/checkout@v3
         with:
           ref: 'main'
           fetch-depth: '0'
 
-        - name: Configure Git
-          run: |
-            git config user.name ChoHyeonSeong
-            git config user.email johs970917@gmail.com
+      - name: Configure Git
+        run: |
+          git config user.name ChoHyeonSeong
+          git config user.email johs970917@gmail.com
 
-        - name: Merge dev branch
-          run: |
-            git merge origin/dev --no-edit
+      - name: Merge dev branch
+        run: |
+          git merge origin/dev --no-edit
 
-        - name: Push changes to main branch
-          uses: ad-m/github-push-action@master
-          with:
-            branch: main
-            gihthub_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push changes to main branch
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
+          gihthub_token: ${{ secrets.GITHUB_TOKEN }}
