@@ -3,30 +3,79 @@ name: Merge Dev to Main
 on:
   push:
     branches:
-      - dev
+      - main
       
 jobs:
-  merge:
+  backend-build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: furrycon-server/furrycon
+
     steps:
-      - name: Checkout main branch
-        uses: actions/checkout@v4
-        with:
-          ref: 'main'
-          fetch-depth: '0'
+    - name: Checkout main
+      uses: actions/checkout@v4
 
-      - name: Configure Git
-        run: |
-          git config user.name ChoHyeonSeong
-          git config user.email johs970917@gmail.com
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
 
-      - name: Merge dev branch
-        run: |
-          git merge origin/dev --no-edit
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: ${{ runner.os }}-gradle
 
-      - name: Push changes to main branch
-        uses: ad-m/github-push-action@master
-        with:
-          branch: main
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts
+        path: build/libs/
+  
+  frontend-build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: furrycon
+
+    steps:
+    - name: Checkout main
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.npm
+          node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build
+
+    - name: Upload production-ready build files
+      uses: actions/upload-artifact@v3
+      with:
+        name: production-build
+        path: ./
