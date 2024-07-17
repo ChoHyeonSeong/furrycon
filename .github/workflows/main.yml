@@ -39,8 +39,10 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: build-artifacts
-        path: ./furrycon-server/furrycon/build/libs/*.jar
+        name: backend-build
+        path: |
+          ./furrycon-server/furrycon/build/libs/*.jar
+          !./furrycon-server/furrycon/build/libs/*-plain.jar
   
   frontend-build:
     runs-on: ubuntu-latest
@@ -77,5 +79,5 @@ jobs:
     - name: Upload production-ready build files
       uses: actions/upload-artifact@v4
       with:
-        name: production-build
+        name: frontend-build
         path: ./furrycon/dist
