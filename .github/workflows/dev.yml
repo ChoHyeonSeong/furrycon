@@ -23,7 +23,7 @@ jobs:
 
       - name: Merge dev branch
         run: |
-          git merge origin/dev --no-edit
+          git merge origin/dev --no-ff
 
       - name: Push changes to main branch
         uses: ad-m/github-push-action@master
