@@ -13,7 +13,7 @@
       <tbody>
         <template v-for="(convention, i) in conventionStore.conventions" :key="i">
           <tr>
-            <td>{{ convention.startDate }} - {{ convention.endDate }}</td>
+            <td>{{ convention.startDate }} ~ {{ convention.endDate }}</td>
             <td>{{ convention.countryCode }}</td>
             <td>{{ convention.name }}</td>
             <td>{{ convention.location }}</td>

@@ -28,7 +28,6 @@ export const useConventionStore = defineStore('convention', {
         this.endDate,
         this.confirmedLocation
       )
-      console.log(data)
       this.conventions = data.content
     },
     setCountryCodeFilter(countryCode: string) {

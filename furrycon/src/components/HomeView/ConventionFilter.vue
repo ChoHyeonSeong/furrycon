@@ -9,7 +9,7 @@
         "
         @click="selectFilter(0)"
       >
-        <schedule-icon class="icon-box" />
+        <svg-icon type="mdi" :path="calendarIcon" class="icon-box" />
         schedule
       </button>
       <vue-date-picker
@@ -29,7 +29,7 @@
         :class="countrySelected ? 'half-btn half-box symbol-bg-color' : 'btn full-box btn-bg-color'"
         @click="selectFilter(1)"
       >
-        <flag-icon class="icon-box" />
+        <svg-icon type="mdi" :path="flagIcon" class="icon-box" />
         country
       </button>
       <vue3-country-intl
@@ -44,10 +44,10 @@
       <button
         type="button"
         class="flex-center btn full-box"
-        :class="confirmedLocationSelected ? 'symbol-bg-color' : 'btn-bg-color'"
+        :class="confirmedLocationSelected ? 'symbol-bg-color btn-color-black' : 'btn-bg-color'"
         @click="selectFilter(2), updateConfirmedLocation()"
       >
-        <plus-icon class="icon-box" />
+        <svg-icon type="mdi" :path="checkCircleIcon" class="icon-box" />
         confirmed location
       </button>
     </div>
@@ -56,12 +56,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import ScheduleIcon from '@/components/icons/ScheduleIcon.vue'
-import PlusIcon from '@/components/icons/PlusIcon.vue'
-import FlagIcon from '@/components/icons/FlagIcon.vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { useConventionStore } from '@/stores/convention'
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiCalendarClock, mdiFlag, mdiCheckCircleOutline } from '@mdi/js'
 
 const scheduleSelected = ref(false)
 const countrySelected = ref(false)
@@ -69,6 +68,9 @@ const confirmedLocationSelected = ref(false)
 const dateRange = ref()
 const countryCode = ref()
 const conventionStore = useConventionStore()
+const calendarIcon = ref(mdiCalendarClock)
+const flagIcon = ref(mdiFlag)
+const checkCircleIcon = ref(mdiCheckCircleOutline)
 
 function selectFilter(filter: number) {
   switch (filter) {
@@ -88,7 +90,7 @@ function selectFilter(filter: number) {
 
 function updateDateRange(range?: string[]) {
   dateRange.value = range
-  if (range) conventionStore.setScheduleFilter(range[0], range[1])
+  if (range && range[0] && range[1]) conventionStore.setScheduleFilter(range[0], range[1])
   else conventionStore.resetScheduleFilter()
 }
 
@@ -121,7 +123,7 @@ function updateConfirmedLocation() {
   transition-duration: 0.2s;
 }
 .half-box {
-  width: 40%;
+  width: 50%;
 }
 .half-btn {
   font-size: 1.5em;
@@ -142,7 +144,7 @@ function updateConfirmedLocation() {
 }
 
 .input-box {
-  width: 60%;
+  width: 50%;
   border-radius: 5px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -150,12 +152,12 @@ function updateConfirmedLocation() {
 }
 
 .date-picker-box {
-  width: 60%;
+  width: 50%;
 }
 
 .icon-box {
-  width: 1.5em;
-  height: 1.5em;
+  width: 36px;
+  height: 36px;
   margin: 10px;
 }
 .country-box {
@@ -163,6 +165,10 @@ function updateConfirmedLocation() {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   height: 70px;
+}
+
+.btn-color-black {
+  color: black;
 }
 </style>
 
