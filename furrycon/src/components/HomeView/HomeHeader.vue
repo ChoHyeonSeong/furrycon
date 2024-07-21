@@ -1,7 +1,8 @@
 <template>
   <div class="vertical-center home-header">
     <div class="flex-center name-box">
-      <h1>FurryCon World</h1>
+      <div>FURRYCON</div>
+      <div>WORLD</div>
     </div>
   </div>
 </template>
@@ -11,17 +12,14 @@
 <style scoped>
 .home-header {
   justify-content: space-between;
+  height: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .name-box {
-  width: 25%;
-}
-
-.sign-in-box {
-  width: 10%;
-  height: 5vh;
-  border: 1px solid lightgray;
-  background-color: white;
-  border-radius: 5px;
+  flex-direction: column;
+  font-size: 22px;
+  font-weight: bold;
 }
 </style>

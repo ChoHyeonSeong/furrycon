@@ -1,12 +1,12 @@
 <template>
-  <header>
-    <div class="flex-center header-box component-margin symbol-bg-color">
-      <home-header class="content-width" />
+  <header class="flex-center">
+    <div class="content-width">
+      <home-header />
     </div>
   </header>
   <main class="flex-center">
     <div class="content-width">
-      <convention-filter class="component-margin" />
+      <convention-filter />
       <convention-list />
     </div>
   </main>
@@ -22,15 +22,7 @@ testConnection('테스트 연결!')
 </script>
 
 <style scoped>
-.header-box {
-  height: 80px;
-  width: 100vw;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
-}
 .content-width {
   width: 1280px;
-}
-.component-margin {
-  margin-bottom: 30px;
 }
 </style>

@@ -1,6 +1,19 @@
 <template>
-  <div class="filter-box flex">
-    <div class="btn-box flex">
+  <div class="filter-box">
+    <!-- 일반 필터 -->
+    <div class="flex">
+      <div class="filter-item">
+        <div class="flex-center filter-big-title">schedule</div>
+        <div><input type="date" /> ~ <input type="date" /></div>
+      </div>
+      <div class="filter-item">
+        <div class="flex-center filter-big-title">country</div>
+        <country-dropdown />
+      </div>
+    </div>
+    <!-- 체크 필터 -->
+    <div>Check</div>
+    <!-- <div class="btn-box flex">
       <button
         type="button"
         class="flex-center"
@@ -50,7 +63,7 @@
         <svg-icon type="mdi" :path="checkCircleIcon" class="icon-box" />
         confirmed location
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -60,6 +73,7 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { useConventionStore } from '@/stores/convention'
 import SvgIcon from '@jamescoyle/vue-icon'
+import CountryDropdown from './CountryDropdown.vue'
 import { mdiCalendarClock, mdiFlag, mdiCheckCircleOutline } from '@mdi/js'
 
 const scheduleSelected = ref(false)
@@ -107,8 +121,7 @@ function updateConfirmedLocation() {
 
 <style scoped>
 .filter-box {
-  width: 100%;
-  justify-content: space-between;
+  margin-bottom: 20px;
 }
 .btn-box {
   width: 32%;
@@ -190,5 +203,15 @@ function updateConfirmedLocation() {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.schedule-filter-small-title {
+  font-size: 14px;
+}
+.filter-big-title {
+  font-size: 20px;
+}
+.filter-item {
+  margin: 10px;
 }
 </style>

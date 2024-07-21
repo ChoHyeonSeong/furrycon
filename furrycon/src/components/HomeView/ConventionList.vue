@@ -7,18 +7,26 @@
           <th>Country</th>
           <th>Convention</th>
           <th>Location</th>
-          <th>Homepage</th>
+          <th class="icon-th">
+            <svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center" />
+          </th>
         </tr>
       </thead>
       <tbody>
         <template v-for="(convention, i) in conventionStore.conventions" :key="i">
           <tr>
             <td>{{ convention.startDate }} ~ {{ convention.endDate }}</td>
-            <td>{{ convention.countryCode }}</td>
+            <td>
+              <img :src="'@/assets/countrySvg/' + convention.countryCode + '.svg'" alt="Logo" />{{
+                convention.countryCode
+              }}
+            </td>
             <td>{{ convention.name }}</td>
             <td>{{ convention.location }}</td>
             <td>
-              <a :href="convention.homepageUrl"><home-icon class="icon-box" /></a>
+              <a :href="convention.homepageUrl"
+                ><svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center"
+              /></a>
             </td>
           </tr>
         </template>
@@ -28,10 +36,13 @@
 </template>
 
 <script setup lang="ts">
-import HomeIcon from '@/components/icons/HomeIcon.vue'
 import { useConventionStore } from '@/stores/convention'
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiHome } from '@mdi/js'
+import { ref } from 'vue'
 
 const conventionStore = useConventionStore()
+const homeIcon = ref(mdiHome)
 
 conventionStore.resetConventions()
 </script>
@@ -57,7 +68,7 @@ thead {
 
 td,
 th {
-  padding: 1em 0.5em;
+  padding: 1em 1em;
   vertical-align: middle;
   text-align: center;
 }
@@ -67,8 +78,10 @@ th {
   color: black;
 }
 .icon-box {
-  width: 2em;
-  height: 2em;
-  margin: 10px;
+  width: 36px;
+  height: 36px;
+}
+.icon-th {
+  width: 36px;
 }
 </style>
