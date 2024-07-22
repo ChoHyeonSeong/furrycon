@@ -7,38 +7,73 @@
       v-model="searchCountry"
       @focus="show"
       @blur="hide"
-      @keyup="countryFilter"
+      @input="countryFilter"
     />
-    <div id="dropdown" class="dropdown-content">
+    <div id="dropdown" class="dropdown-content" v-if="clickSearch">
       <!-- 검색 결과가 여기 나타납니다 -->
+      <template v-for="(item, i) in countries" :key="i">
+        <div
+          @mouseover="mouseoverCountry"
+          @mouseout="mouseoutCountry"
+          @click="selectCountry(item.iso3)"
+        >
+          {{ item.name }}
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useConventionStore } from '@/stores/convention'
 import { ref } from 'vue'
 const searchCountry = ref('')
-const clickSearch = ref('false')
+const clickSearch = ref(false)
+
+const conventionStore = useConventionStore()
+const countries = ref([])
+const countryHover = ref(false)
 
 function show() {
-  console.log('show')
-  if (searchCountry.value != '') {
-    console.log(searchCountry.value)
+  clickSearch.value = true
+  const filter = searchCountry.value.toUpperCase()
+  if (filter) {
+    const filteredData = conventionStore.countries.filter(
+      (item) => item.name.toUpperCase().includes(filter) || item.iso3.toUpperCase().includes(filter)
+    )
+    countries.value = filteredData
   } else {
-    console.log('all')
+    countries.value = conventionStore.countries
   }
 }
 
 function hide() {
-  console.log('hide')
+  if (!countryHover.value) clickSearch.value = false
 }
 
 function countryFilter() {
-  if (searchCountry.value != '') {
-    console.log(searchCountry.value)
+  const filter = searchCountry.value.toUpperCase()
+  if (filter) {
+    const filteredData = conventionStore.countries.filter(
+      (item) => item.name.toUpperCase().includes(filter) || item.iso3.toUpperCase().includes(filter)
+    )
+    countries.value = filteredData
   } else {
-    console.log('all')
+    countries.value = conventionStore.countries
   }
+}
+
+function selectCountry(iso3) {
+  searchCountry.value = iso3
+  mouseoutCountry()
+  hide()
+}
+
+function mouseoverCountry() {
+  countryHover.value = true
+}
+function mouseoutCountry() {
+  countryHover.value = false
 }
 // // 검색 입력 필드와 드롭다운 요소를 가져오기
 // const searchInput = document.getElementById('searchInput')
@@ -91,14 +126,15 @@ function countryFilter() {
 }
 
 .dropdown-content {
-  display: none;
+  display: block;
+  overflow-y: scroll;
+  height: 300px;
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
-
 .dropdown-content div {
   color: black;
   padding: 12px 16px;
@@ -109,8 +145,9 @@ function countryFilter() {
 .dropdown-content div:hover {
   background-color: #ddd;
 }
+/* 
 
 .show {
   display: block;
-}
+} */
 </style>

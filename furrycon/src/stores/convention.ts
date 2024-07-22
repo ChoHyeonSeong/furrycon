@@ -1,25 +1,6 @@
 import { readConventions, type ResponseConvention } from '@/api/convention'
+import { countriesData } from '@/components/common/countryData'
 import { defineStore } from 'pinia'
-import Papa from 'papaparse'
-
-async function loadCSV() {
-  const countryMap = new Map<string, string>()
-  try {
-    const response = await fetch(require('@/assets/countryData.csv'))
-    const csvText = await response.text()
-    Papa.parse(csvText, {
-      header: true,
-      dynamicTyping: true,
-      complete: (results: any) => {},
-      error: (error: any) => {
-        console.error('Error parsing CSV:', error)
-      }
-    })
-  } catch (error) {
-    console.error('Error loading CSV:', error)
-  }
-  return countryMap
-}
 
 function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0')
@@ -36,7 +17,8 @@ export const useConventionStore = defineStore('convention', {
     startDate: formatDate(new Date()),
     endDate: formatDate(new Date(64000000000000)),
     confirmedLocation: false,
-    conventions: [] as ResponseConvention[]
+    conventions: [] as ResponseConvention[],
+    countries: countriesData
   }),
   actions: {
     async nextConventions() {

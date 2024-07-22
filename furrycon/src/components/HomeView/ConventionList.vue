@@ -3,9 +3,9 @@
     <table class="full-width">
       <thead>
         <tr>
-          <th>Schedule</th>
-          <th>Country</th>
-          <th>Convention</th>
+          <th style="width: 230px">Schedule</th>
+          <th style="width: 110px">Country</th>
+          <th style="width: 300px">Convention</th>
           <th>Location</th>
           <th class="icon-th">
             <svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center" />
@@ -16,20 +16,37 @@
         <template v-for="(convention, i) in conventionStore.conventions" :key="i">
           <tr>
             <td>{{ convention.startDate }} ~ {{ convention.endDate }}</td>
-            <td>
-              <img :src="'@/assets/countrySvg/' + convention.countryCode + '.svg'" alt="Logo" />{{
-                convention.countryCode
-              }}
+            <td class="flex-center">
+              <img
+                :src="'@/assets/countrySvg/' + convention.countryCode + '.svg'"
+                alt="Logo"
+                class="flag-box"
+              />
+              <div>
+                {{ convention.countryCode }}
+              </div>
             </td>
             <td>{{ convention.name }}</td>
             <td>{{ convention.location }}</td>
             <td>
-              <a :href="convention.homepageUrl"
-                ><svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center"
-              /></a>
+              <a :href="convention.homepageUrl">
+                <svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center" />
+              </a>
             </td>
           </tr>
         </template>
+        <tr>
+          <td><span>2024-07-25 ~ 2024-08-13</span></td>
+          <td class="flex-center">
+            <img src="@/assets/countrySvg/kr.svg" alt="Logo" class="flag-box" />
+            <div>KOR</div>
+          </td>
+          <td>korean furry convention</td>
+          <td>furry</td>
+          <td>
+            <svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center" />
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -83,5 +100,9 @@ th {
 }
 .icon-th {
   width: 36px;
+}
+.flag-box {
+  width: 64px;
+  height: 64px;
 }
 </style>

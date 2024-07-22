@@ -73,7 +73,7 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { useConventionStore } from '@/stores/convention'
 import SvgIcon from '@jamescoyle/vue-icon'
-import CountryDropdown from './CountryDropdown.vue'
+import CountryDropdown from '@/components/HomeView/CountryDropdown.vue'
 import { mdiCalendarClock, mdiFlag, mdiCheckCircleOutline } from '@mdi/js'
 
 const scheduleSelected = ref(false)
