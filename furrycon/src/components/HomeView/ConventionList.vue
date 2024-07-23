@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useConventionStore } from '@/stores/convention'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiHome } from '@mdi/js'
