@@ -1,4 +1,5 @@
 import { readConventions, type ResponseConvention } from '@/api/convention'
+import { countriesData } from '@/components/common/countryData'
 import { defineStore } from 'pinia'
 
 function padTo2Digits(num: number) {
@@ -16,7 +17,8 @@ export const useConventionStore = defineStore('convention', {
     startDate: formatDate(new Date()),
     endDate: formatDate(new Date(64000000000000)),
     confirmedLocation: false,
-    conventions: [] as ResponseConvention[]
+    conventions: [] as ResponseConvention[],
+    countries: countriesData
   }),
   actions: {
     async nextConventions() {
@@ -28,7 +30,6 @@ export const useConventionStore = defineStore('convention', {
         this.endDate,
         this.confirmedLocation
       )
-      console.log(data)
       this.conventions = data.content
     },
     setCountryCodeFilter(countryCode: string) {
