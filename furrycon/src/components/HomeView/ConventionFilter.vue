@@ -1,67 +1,36 @@
 <template>
-  <div class="filter-box flex">
-    <div class="btn-box flex">
-      <button
-        type="button"
-        class="flex-center"
-        :class="
-          scheduleSelected ? 'half-btn half-box symbol-bg-color' : 'btn full-box btn-bg-color'
-        "
-        @click="selectFilter(0)"
-      >
-        <schedule-icon class="icon-box" />
-        schedule
-      </button>
-      <vue-date-picker
-        class="date-picker-box full-height"
-        v-if="scheduleSelected"
-        v-model="dateRange"
-        @update:model-value="updateDateRange"
-        model-type="yyyy-MM-dd"
-        :enable-time-picker="false"
-        range
-      />
+  <div class="filter-box">
+    <!-- 일반 필터 -->
+    <div class="flex">
+      <div class="filter-item">
+        <div class="flex-center filter-big-title">dates</div>
+        <div><input type="date" /> ~ <input type="date" /></div>
+      </div>
+      <div class="filter-item">
+        <div class="flex-center filter-big-title">country</div>
+        <country-dropdown />
+      </div>
     </div>
-    <div class="btn-box flex">
-      <button
-        type="button"
-        class="flex-center"
-        :class="countrySelected ? 'half-btn half-box symbol-bg-color' : 'btn full-box btn-bg-color'"
-        @click="selectFilter(1)"
-      >
-        <flag-icon class="icon-box" />
-        country
-      </button>
-      <vue3-country-intl
-        class="input-box country-box"
-        type="country"
-        v-if="countrySelected"
-        placeholder="Select Country"
-        @change="updateCountryCode"
-      />
-    </div>
-    <div class="btn-box flex">
-      <button
-        type="button"
-        class="flex-center btn full-box"
-        :class="confirmedLocationSelected ? 'symbol-bg-color' : 'btn-bg-color'"
-        @click="selectFilter(2), updateConfirmedLocation()"
-      >
-        <plus-icon class="icon-box" />
-        confirmed location
-      </button>
+    <!-- 체크 필터 -->
+    <div class="flex">
+      <div class="filter-item">
+        <div class="flex-center filter-big-title">location confirmed</div>
+        <div class="flex-center location-confirmed-checkbox">
+          <input type="checkbox" value="false" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue'
-import ScheduleIcon from '@/components/icons/ScheduleIcon.vue'
-import PlusIcon from '@/components/icons/PlusIcon.vue'
-import FlagIcon from '@/components/icons/FlagIcon.vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { useConventionStore } from '@/stores/convention'
+import SvgIcon from '@jamescoyle/vue-icon'
+import CountryDropdown from '@/components/HomeView/CountryDropdown.vue'
+import { mdiCalendarClock, mdiFlag, mdiCheckCircleOutline } from '@mdi/js'
 
 const scheduleSelected = ref(false)
 const countrySelected = ref(false)
@@ -69,8 +38,11 @@ const confirmedLocationSelected = ref(false)
 const dateRange = ref()
 const countryCode = ref()
 const conventionStore = useConventionStore()
+const calendarIcon = ref(mdiCalendarClock)
+const flagIcon = ref(mdiFlag)
+const checkCircleIcon = ref(mdiCheckCircleOutline)
 
-function selectFilter(filter: number) {
+function selectFilter(filter) {
   switch (filter) {
     case 0:
       scheduleSelected.value = !scheduleSelected.value
@@ -86,13 +58,13 @@ function selectFilter(filter: number) {
   }
 }
 
-function updateDateRange(range?: string[]) {
+function updateDateRange(range) {
   dateRange.value = range
-  if (range) conventionStore.setScheduleFilter(range[0], range[1])
+  if (range && range[0] && range[1]) conventionStore.setScheduleFilter(range[0], range[1])
   else conventionStore.resetScheduleFilter()
 }
 
-function updateCountryCode(code?: { iso2: string }) {
+function updateCountryCode(code) {
   countryCode.value = code
   if (code) conventionStore.setCountryCodeFilter(code.iso2)
   else conventionStore.resetCountryCodeFilter()
@@ -105,8 +77,7 @@ function updateConfirmedLocation() {
 
 <style scoped>
 .filter-box {
-  width: 100%;
-  justify-content: space-between;
+  margin-bottom: 20px;
 }
 .btn-box {
   width: 32%;
@@ -121,7 +92,7 @@ function updateConfirmedLocation() {
   transition-duration: 0.2s;
 }
 .half-box {
-  width: 40%;
+  width: 50%;
 }
 .half-btn {
   font-size: 1.5em;
@@ -142,7 +113,7 @@ function updateConfirmedLocation() {
 }
 
 .input-box {
-  width: 60%;
+  width: 50%;
   border-radius: 5px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -150,12 +121,12 @@ function updateConfirmedLocation() {
 }
 
 .date-picker-box {
-  width: 60%;
+  width: 50%;
 }
 
 .icon-box {
-  width: 1.5em;
-  height: 1.5em;
+  width: 36px;
+  height: 36px;
   margin: 10px;
 }
 .country-box {
@@ -163,6 +134,14 @@ function updateConfirmedLocation() {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   height: 70px;
+}
+
+.btn-color-black {
+  color: black;
+}
+
+.location-confirmed-checkbox {
+  height: 22px;
 }
 </style>
 
@@ -184,5 +163,20 @@ function updateConfirmedLocation() {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.schedule-filter-small-title {
+  font-size: 14px;
+}
+.filter-big-title {
+  font-size: 20px;
+  border-bottom: 1px solid lightgray;
+}
+.filter-item {
+  margin: 10px;
+  padding: 6px;
+  border-radius: 5px;
+  height: 50px;
+  border: 1px solid lightgray;
 }
 </style>
