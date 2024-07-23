@@ -6,7 +6,7 @@
   </header>
   <main class="flex-center">
     <div class="content-width">
-      <convention-filter />
+      <!-- <convention-filter /> -->
       <convention-list />
     </div>
   </main>

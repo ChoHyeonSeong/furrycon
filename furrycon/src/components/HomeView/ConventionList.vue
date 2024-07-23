@@ -3,7 +3,7 @@
     <table class="full-width">
       <thead>
         <tr>
-          <th style="width: 230px">Schedule</th>
+          <th style="width: 230px">Dates</th>
           <th style="width: 110px">Country</th>
           <th style="width: 300px">Convention</th>
           <th>Location</th>
@@ -35,24 +35,12 @@
             </td>
           </tr>
         </template>
-        <tr>
-          <td><span>2024-07-25 ~ 2024-08-13</span></td>
-          <td class="flex-center">
-            <img src="@/assets/countrySvg/kr.svg" alt="Logo" class="flag-box" />
-            <div>KOR</div>
-          </td>
-          <td>korean furry convention</td>
-          <td>furry</td>
-          <td>
-            <svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center" />
-          </td>
-        </tr>
       </tbody>
     </table>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useConventionStore } from '@/stores/convention'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiHome } from '@mdi/js'

@@ -3,7 +3,7 @@
     <!-- 일반 필터 -->
     <div class="flex">
       <div class="filter-item">
-        <div class="flex-center filter-big-title">schedule</div>
+        <div class="flex-center filter-big-title">dates</div>
         <div><input type="date" /> ~ <input type="date" /></div>
       </div>
       <div class="filter-item">
@@ -12,62 +12,18 @@
       </div>
     </div>
     <!-- 체크 필터 -->
-    <div>Check</div>
-    <!-- <div class="btn-box flex">
-      <button
-        type="button"
-        class="flex-center"
-        :class="
-          scheduleSelected ? 'half-btn half-box symbol-bg-color' : 'btn full-box btn-bg-color'
-        "
-        @click="selectFilter(0)"
-      >
-        <svg-icon type="mdi" :path="calendarIcon" class="icon-box" />
-        schedule
-      </button>
-      <vue-date-picker
-        class="date-picker-box full-height"
-        v-if="scheduleSelected"
-        v-model="dateRange"
-        @update:model-value="updateDateRange"
-        model-type="yyyy-MM-dd"
-        :enable-time-picker="false"
-        range
-      />
+    <div class="flex">
+      <div class="filter-item">
+        <div class="flex-center filter-big-title">location confirmed</div>
+        <div class="flex-center location-confirmed-checkbox">
+          <input type="checkbox" value="false" />
+        </div>
+      </div>
     </div>
-    <div class="btn-box flex">
-      <button
-        type="button"
-        class="flex-center"
-        :class="countrySelected ? 'half-btn half-box symbol-bg-color' : 'btn full-box btn-bg-color'"
-        @click="selectFilter(1)"
-      >
-        <svg-icon type="mdi" :path="flagIcon" class="icon-box" />
-        country
-      </button>
-      <vue3-country-intl
-        class="input-box country-box"
-        type="country"
-        v-if="countrySelected"
-        placeholder="Select Country"
-        @change="updateCountryCode"
-      />
-    </div>
-    <div class="btn-box flex">
-      <button
-        type="button"
-        class="flex-center btn full-box"
-        :class="confirmedLocationSelected ? 'symbol-bg-color btn-color-black' : 'btn-bg-color'"
-        @click="selectFilter(2), updateConfirmedLocation()"
-      >
-        <svg-icon type="mdi" :path="checkCircleIcon" class="icon-box" />
-        confirmed location
-      </button>
-    </div> -->
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -86,7 +42,7 @@ const calendarIcon = ref(mdiCalendarClock)
 const flagIcon = ref(mdiFlag)
 const checkCircleIcon = ref(mdiCheckCircleOutline)
 
-function selectFilter(filter: number) {
+function selectFilter(filter) {
   switch (filter) {
     case 0:
       scheduleSelected.value = !scheduleSelected.value
@@ -102,13 +58,13 @@ function selectFilter(filter: number) {
   }
 }
 
-function updateDateRange(range?: string[]) {
+function updateDateRange(range) {
   dateRange.value = range
   if (range && range[0] && range[1]) conventionStore.setScheduleFilter(range[0], range[1])
   else conventionStore.resetScheduleFilter()
 }
 
-function updateCountryCode(code?: { iso2: string }) {
+function updateCountryCode(code) {
   countryCode.value = code
   if (code) conventionStore.setCountryCodeFilter(code.iso2)
   else conventionStore.resetCountryCodeFilter()
@@ -183,6 +139,10 @@ function updateConfirmedLocation() {
 .btn-color-black {
   color: black;
 }
+
+.location-confirmed-checkbox {
+  height: 22px;
+}
 </style>
 
 <style>
@@ -210,8 +170,13 @@ function updateConfirmedLocation() {
 }
 .filter-big-title {
   font-size: 20px;
+  border-bottom: 1px solid lightgray;
 }
 .filter-item {
   margin: 10px;
+  padding: 6px;
+  border-radius: 5px;
+  height: 50px;
+  border: 1px solid lightgray;
 }
 </style>
