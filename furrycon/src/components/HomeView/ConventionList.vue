@@ -23,7 +23,7 @@
                 class="flag-box"
               />
               <div>
-                {{ convention.countryCode }}
+                {{ convention.countryCode.toUpperCase() }}
               </div>
             </td>
             <td>{{ convention.name }}</td>
