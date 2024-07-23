@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/wasabi/970917',
       name: 'manager',
-      component: () => import('../views/ManagerView.vue'),
+      component: () => import('@/views/ManagerView.vue'),
       children: [
         {
           path: '',
