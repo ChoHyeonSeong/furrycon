@@ -31,7 +31,7 @@ export const useConventionStore = defineStore('convention', {
           this.endDate
         )
         this.pageLast = data.last
-        this.conventions.concat(data.content)
+        this.conventions = this.conventions.concat(data.content)
       }
     },
     setCountryCodeFilter(countryCode: string) {
