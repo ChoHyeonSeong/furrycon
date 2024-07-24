@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface ConventionService {
     Slice<ConventionDTO> readAllConvention(Pageable pageable);
-    Slice<ConventionDTO> readConventions(String countryCode, LocalDate startDate, LocalDate endDate, Boolean confirmedLocation, Pageable pageable);
+    Slice<ConventionDTO> readConventions(String countryCode, LocalDate startDate, LocalDate endDate, Pageable pageable);
     void createConvention(ConventionDTO dto);
 }
