@@ -1,7 +1,7 @@
 <template>
   <div>
-    <input type="date" v-model="startDate" @input="filterDate" /> ~
-    <input type="date" v-model="endDate" @input="filterDate" />
+    <input type="date" v-model="startDate" @input="inputDate" /> ~
+    <input type="date" v-model="endDate" @input="inputDate" />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ const startDate = ref<Date>()
 const endDate = ref<Date>()
 const conventionStore = useConventionStore()
 
-function filterDate() {
+function inputDate() {
   if (startDate.value && endDate.value) {
     if (startDate.value > endDate.value) {
       const temp = startDate.value
