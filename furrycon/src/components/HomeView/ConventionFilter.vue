@@ -11,15 +11,6 @@
         <country-dropdown />
       </div>
     </div>
-    <!-- 체크 필터 -->
-    <div class="flex">
-      <div class="filter-item">
-        <div class="flex-center filter-big-title">location confirmed</div>
-        <div class="flex-center location-confirmed-checkbox">
-          <input type="checkbox" value="false" />
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -34,7 +25,6 @@ import { mdiCalendarClock, mdiFlag, mdiCheckCircleOutline } from '@mdi/js'
 
 const scheduleSelected = ref(false)
 const countrySelected = ref(false)
-const confirmedLocationSelected = ref(false)
 const dateRange = ref()
 const countryCode = ref()
 const conventionStore = useConventionStore()
@@ -52,9 +42,6 @@ function selectFilter(filter) {
       countrySelected.value = !countrySelected.value
       if (!countrySelected.value) updateCountryCode()
       break
-    case 2:
-      confirmedLocationSelected.value = !confirmedLocationSelected.value
-      break
   }
 }
 
@@ -68,10 +55,6 @@ function updateCountryCode(code) {
   countryCode.value = code
   if (code) conventionStore.setCountryCodeFilter(code.iso2)
   else conventionStore.resetCountryCodeFilter()
-}
-
-function updateConfirmedLocation() {
-  conventionStore.setConfirmedLocationFilter(confirmedLocationSelected.value)
 }
 </script>
 

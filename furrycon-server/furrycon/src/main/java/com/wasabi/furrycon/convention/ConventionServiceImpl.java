@@ -25,8 +25,8 @@ public class ConventionServiceImpl implements ConventionService {
     }
 
     @Override
-    public Slice<ConventionDTO> readConventions(String countryCode, LocalDate startDate, LocalDate endDate, Boolean confirmedLocation, Pageable pageable) {
-        return conventionDAO.readConventions(countryCode,startDate,endDate,confirmedLocation,pageable).map(e->mapper.map(e, ConventionDTO.class));
+    public Slice<ConventionDTO> readConventions(String countryCode, LocalDate startDate, LocalDate endDate,  Pageable pageable) {
+        return conventionDAO.readConventions(countryCode,startDate,endDate,pageable).map(e->mapper.map(e, ConventionDTO.class));
     }
 
     @Override

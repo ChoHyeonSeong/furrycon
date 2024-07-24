@@ -22,5 +22,6 @@ public class ConventionDTO {
     private LocalDate endDate;
     private String countryCode;
     private String location;
+    private String city;
     private String homepageUrl;
 }

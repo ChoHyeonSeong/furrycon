@@ -27,7 +27,10 @@
               </div>
             </td>
             <td>{{ convention.name }}</td>
-            <td>{{ convention.location }}</td>
+            <td>
+              <div>{{ convention.location }}</div>
+              <div>{{ convention.city }}</div>
+            </td>
             <td>
               <a :href="convention.homepageUrl">
                 <svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center" />

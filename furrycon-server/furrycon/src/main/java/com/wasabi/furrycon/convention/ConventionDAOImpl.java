@@ -21,8 +21,8 @@ public class ConventionDAOImpl implements ConventionDAO{
     }
 
     @Override
-    public Slice<ConventionEntity> readConventions(String countryCode, LocalDate startDate, LocalDate endDate, Boolean confirmedLocation, Pageable pageable) {
-        return repo.findConventions(countryCode, startDate, endDate, confirmedLocation, pageable);
+    public Slice<ConventionEntity> readConventions(String countryCode, LocalDate startDate, LocalDate endDate, Pageable pageable) {
+        return repo.findConventions(countryCode, startDate, endDate, pageable);
     }
 
     @Override
