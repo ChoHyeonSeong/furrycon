@@ -29,6 +29,10 @@
         <input class="input-field" type="text" v-model="convention.location" />
       </div>
       <div class="input-box">
+        City :
+        <input class="input-field" type="text" v-model="convention.city" />
+      </div>
+      <div class="input-box">
         HomepageUrl :
         <input class="input-field" type="text" v-model="convention.homepageUrl" />
       </div>
@@ -47,6 +51,8 @@ const convention = ref<RequestConvention>({
   startDate: '',
   endDate: '',
   countryCode: '',
+  location: '',
+  city: '',
   homepageUrl: ''
 })
 const managerStore = useManagerStore()
