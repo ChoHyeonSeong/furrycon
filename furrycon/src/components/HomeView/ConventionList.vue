@@ -36,6 +36,7 @@
         </template>
       </tbody>
     </table>
+    <div ref="loadMore" class="loading flex-center"><h1>Loading...</h1></div>
   </div>
 </template>
 
@@ -43,11 +44,29 @@
 import { useConventionStore } from '@/stores/convention'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiHome } from '@mdi/js'
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const conventionStore = useConventionStore()
 const homeIcon = ref(mdiHome)
+const loadMore = ref()
+let observer: IntersectionObserver | null = null
 
+const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+  if (entries[0].isIntersecting) {
+    conventionStore.nextConventions()
+  }
+}
+
+onMounted(() => {
+  observer = new IntersectionObserver(handleIntersect)
+  observer.observe(loadMore.value)
+})
+
+onBeforeUnmount(() => {
+  if (observer) {
+    observer.disconnect()
+  }
+})
 conventionStore.resetConventions()
 </script>
 
