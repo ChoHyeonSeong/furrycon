@@ -18,7 +18,7 @@
             <td>{{ convention.startDate }} ~ {{ convention.endDate }}</td>
             <td class="flex-center">
               <img :src="'/svg/' + convention.countryCode + '.svg'" alt="Logo" class="flag-box" />
-              <div>
+              <div class="code-box">
                 {{ convention.countryCode.toUpperCase() }}
               </div>
             </td>
@@ -28,7 +28,7 @@
               <div>{{ convention.city }}</div>
             </td>
             <td>
-              <a :href="convention.homepageUrl">
+              <a :href="convention.homepageUrl" target="_blank">
                 <svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center" />
               </a>
             </td>
@@ -89,7 +89,10 @@ th {
   width: 36px;
 }
 .flag-box {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
+}
+.code-box {
+  padding-left: 4px;
 }
 </style>
