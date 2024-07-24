@@ -3,7 +3,7 @@
     <input
       type="text"
       id="searchInput"
-      placeholder="Search..."
+      placeholder="Select Country"
       v-model="searchCountry"
       @focus="show"
       @blur="hide"
@@ -12,11 +12,7 @@
     <div id="dropdown" class="dropdown-content" v-if="clickSearch">
       <!-- 검색 결과가 여기 나타납니다 -->
       <template v-for="(item, i) in countries" :key="i">
-        <div
-          @mouseover="mouseoverCountry"
-          @mouseout="mouseoutCountry"
-          @click="selectCountry(item.iso3)"
-        >
+        <div @mouseover="mouseoverCountry" @mouseout="mouseoutCountry" @click="selectCountry(item)">
           {{ item.name }}
         </div>
       </template>
@@ -24,14 +20,14 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useConventionStore } from '@/stores/convention'
 import { ref } from 'vue'
 const searchCountry = ref('')
 const clickSearch = ref(false)
 
 const conventionStore = useConventionStore()
-const countries = ref([])
+const countries = ref<CountryData[]>([])
 const countryHover = ref(false)
 
 function show() {
@@ -63,8 +59,9 @@ function countryFilter() {
   }
 }
 
-function selectCountry(iso3) {
-  searchCountry.value = iso3
+function selectCountry(country: CountryData) {
+  searchCountry.value = country.name
+  conventionStore.setCountryCodeFilter(country.iso3)
   mouseoutCountry()
   hide()
 }
@@ -75,48 +72,12 @@ function mouseoverCountry() {
 function mouseoutCountry() {
   countryHover.value = false
 }
-// // 검색 입력 필드와 드롭다운 요소를 가져오기
-// const searchInput = document.getElementById('searchInput')
-// const dropdown = document.getElementById('dropdown')
 
-// // 검색 결과를 필터링하는 함수
-// function filterFunction() {
-//   const filter = searchInput.value.toUpperCase()
-//   dropdown.innerHTML = '' // 기존 검색 결과 초기화
-
-//   if (filter) {
-//     const filteredData = data.filter((item) => item.toUpperCase().includes(filter))
-
-//     filteredData.forEach((item) => {
-//       const div = document.createElement('div')
-//       div.textContent = item
-//       dropdown.appendChild(div)
-//     })
-
-//     if (filteredData.length > 0) {
-//       dropdown.classList.add('show')
-//     } else {
-//       dropdown.classList.remove('show')
-//     }
-//   } else {
-//     dropdown.classList.remove('show')
-//   }
-// }
-
-// // 검색 결과를 클릭했을 때 입력 필드에 값 설정
-// dropdown.addEventListener('click', function (event) {
-//   if (event.target.tagName === 'DIV') {
-//     searchInput.value = event.target.textContent
-//     dropdown.classList.remove('show')
-//   }
-// })
-
-// // 입력 필드 외부를 클릭했을 때 드롭다운 숨기기
-// document.addEventListener('click', function (event) {
-//   if (!event.target.matches('#searchInput')) {
-//     dropdown.classList.remove('show')
-//   }
-// })
+interface CountryData {
+  name: string
+  iso2: string
+  iso3: string
+}
 </script>
 
 <style scoped>
@@ -145,9 +106,4 @@ function mouseoutCountry() {
 .dropdown-content div:hover {
   background-color: #ddd;
 }
-/* 
-
-.show {
-  display: block;
-} */
 </style>

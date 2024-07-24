@@ -1,8 +1,11 @@
 <template>
   <div class="vertical-center home-header">
-    <div class="flex-center name-box">
-      <div>FURRYCON</div>
-      <div>WORLD</div>
+    <div class="flex-center">
+      <img class="logo-box" src="/logo.png" alt="" />
+      <div class="flex-center name-box">
+        <div>FURRYCON</div>
+        <div>WORLD</div>
+      </div>
     </div>
   </div>
 </template>
@@ -21,5 +24,11 @@
   flex-direction: column;
   font-size: 22px;
   font-weight: bold;
+}
+
+.logo-box {
+  width: 64px;
+  height: 64px;
+  margin: 12px;
 }
 </style>
