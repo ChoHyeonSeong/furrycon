@@ -89,8 +89,8 @@ th {
   width: 36px;
 }
 .flag-box {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
 }
 .code-box {
   padding-left: 4px;
