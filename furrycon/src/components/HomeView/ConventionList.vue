@@ -17,11 +17,7 @@
           <tr>
             <td>{{ convention.startDate }} ~ {{ convention.endDate }}</td>
             <td class="flex-center">
-              <img
-                :src="'@/assets/countrySvg/' + convention.countryCode + '.svg'"
-                alt="Logo"
-                class="flag-box"
-              />
+              <img :src="'/svg/' + convention.countryCode + '.svg'" alt="Logo" class="flag-box" />
               <div>
                 {{ convention.countryCode.toUpperCase() }}
               </div>
