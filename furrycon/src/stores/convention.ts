@@ -5,10 +5,14 @@ import { defineStore } from 'pinia'
 function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0')
 }
-function formatDate(date: Date) {
-  return [date.getFullYear(), padTo2Digits(date.getMonth() + 1), padTo2Digits(date.getDate())].join(
-    '-'
-  )
+function formatDate(conDate: Date) {
+  console.log(conDate)
+
+  return [
+    conDate.getFullYear(),
+    padTo2Digits(conDate.getMonth() + 1),
+    padTo2Digits(conDate.getDate())
+  ].join('-')
 }
 export const useConventionStore = defineStore('convention', {
   state: () => ({
@@ -39,8 +43,8 @@ export const useConventionStore = defineStore('convention', {
       this.resetConventions()
     },
     setScheduleFilter(startDate: Date, endDate: Date) {
-      this.startDate = formatDate(startDate)
-      this.endDate = formatDate(endDate)
+      this.startDate = startDate.toString()
+      this.endDate = endDate.toString()
       this.resetConventions()
     },
 
