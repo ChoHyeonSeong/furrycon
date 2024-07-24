@@ -13,6 +13,7 @@ function formatDate(date: Date) {
 export const useConventionStore = defineStore('convention', {
   state: () => ({
     pageNum: -1,
+    pageLast: false,
     countryCode: '',
     startDate: formatDate(new Date()),
     endDate: formatDate(new Date(64000000000000)),
@@ -21,22 +22,25 @@ export const useConventionStore = defineStore('convention', {
   }),
   actions: {
     async nextConventions() {
-      this.pageNum++
-      const { data } = await readConventions(
-        this.pageNum,
-        this.countryCode,
-        this.startDate,
-        this.endDate
-      )
-      this.conventions = data.content
+      if (!this.pageLast) {
+        this.pageNum++
+        const { data } = await readConventions(
+          this.pageNum,
+          this.countryCode,
+          this.startDate,
+          this.endDate
+        )
+        this.pageLast = data.last
+        this.conventions.concat(data.content)
+      }
     },
     setCountryCodeFilter(countryCode: string) {
       this.countryCode = countryCode
       this.resetConventions()
     },
-    setScheduleFilter(startDate: string, endDate: string) {
-      this.startDate = startDate
-      this.endDate = endDate
+    setScheduleFilter(startDate: Date, endDate: Date) {
+      this.startDate = formatDate(startDate)
+      this.endDate = formatDate(endDate)
       this.resetConventions()
     },
 
@@ -44,11 +48,13 @@ export const useConventionStore = defineStore('convention', {
       this.setCountryCodeFilter('')
     },
     resetScheduleFilter() {
-      this.setScheduleFilter(formatDate(new Date()), formatDate(new Date(64000000000000)))
+      this.setScheduleFilter(new Date(), new Date(64000000000000))
     },
 
     resetConventions() {
       this.pageNum = -1
+      this.pageLast = false
+      this.conventions = []
       this.nextConventions()
     }
   }

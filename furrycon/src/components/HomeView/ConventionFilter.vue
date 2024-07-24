@@ -4,7 +4,7 @@
     <div class="flex">
       <div class="filter-item">
         <div class="flex-center filter-big-title">dates</div>
-        <div><input type="date" /> ~ <input type="date" /></div>
+        <convention-dates />
       </div>
       <div class="filter-item">
         <div class="flex-center filter-big-title">country</div>
@@ -14,48 +14,9 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import VueDatePicker from '@vuepic/vue-datepicker'
-import '@vuepic/vue-datepicker/dist/main.css'
-import { useConventionStore } from '@/stores/convention'
-import SvgIcon from '@jamescoyle/vue-icon'
+<script setup lang="ts">
 import CountryDropdown from './CountryDropdown.vue'
-import { mdiCalendarClock, mdiFlag, mdiCheckCircleOutline } from '@mdi/js'
-
-const scheduleSelected = ref(false)
-const countrySelected = ref(false)
-const dateRange = ref()
-const countryCode = ref()
-const conventionStore = useConventionStore()
-const calendarIcon = ref(mdiCalendarClock)
-const flagIcon = ref(mdiFlag)
-const checkCircleIcon = ref(mdiCheckCircleOutline)
-
-function selectFilter(filter) {
-  switch (filter) {
-    case 0:
-      scheduleSelected.value = !scheduleSelected.value
-      if (!scheduleSelected.value) updateDateRange()
-      break
-    case 1:
-      countrySelected.value = !countrySelected.value
-      if (!countrySelected.value) updateCountryCode()
-      break
-  }
-}
-
-function updateDateRange(range) {
-  dateRange.value = range
-  if (range && range[0] && range[1]) conventionStore.setScheduleFilter(range[0], range[1])
-  else conventionStore.resetScheduleFilter()
-}
-
-function updateCountryCode(code) {
-  countryCode.value = code
-  if (code) conventionStore.setCountryCodeFilter(code.iso2)
-  else conventionStore.resetCountryCodeFilter()
-}
+import ConventionDates from './ConventionDates.vue'
 </script>
 
 <style scoped>
