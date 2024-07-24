@@ -4,13 +4,11 @@ function readConventions(
   pageNum: number,
   countryCode?: string,
   startDate?: string,
-  endDate?: string,
-  confirmedLocation?: boolean
+  endDate?: string
 ) {
   let queryStr = '?page=' + pageNum
   if (countryCode !== '') queryStr += '&country_code=' + countryCode
   if (startDate && endDate) queryStr += '&start_date=' + startDate + '&end_date=' + endDate
-  if (confirmedLocation) queryStr += '&confirmed_location=' + confirmedLocation
   return instance.get('api/convention' + queryStr)
 }
 
@@ -27,7 +25,8 @@ interface RequestConvention {
   startDate: string
   endDate: string
   countryCode: string
-  location?: string
+  location: string
+  city: string
   homepageUrl: string
 }
 
@@ -37,6 +36,7 @@ interface ResponseConvention {
   endDate: Date
   countryCode: string
   location: string
+  city: string
   homepageUrl: string
 }
 

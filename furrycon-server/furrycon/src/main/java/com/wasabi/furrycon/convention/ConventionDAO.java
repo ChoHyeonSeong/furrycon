@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ConventionDAO {
     Slice<ConventionEntity> readAllConvention(Pageable pageable);
-    Slice<ConventionEntity> readConventions(String countryCode, LocalDate startDate, LocalDate endDate, Boolean confirmedLocation, Pageable pageable);
+    Slice<ConventionEntity> readConventions(String countryCode, LocalDate startDate, LocalDate endDate, Pageable pageable);
     void createConvention(ConventionEntity entity);
 }

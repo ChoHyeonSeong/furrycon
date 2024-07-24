@@ -29,11 +29,8 @@ public class ConventionController {
             @PageableDefault(page = 0, size = 10, sort = "startDate", direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(name="country_code",required = false) String countryCode,
             @RequestParam(name="start_date",required = false)  String startDate,
-            @RequestParam(name="end_date",required = false)  String endDate,
-            @RequestParam(name="confirmed_location",required = false) Boolean confirmedLocation) {
-        System.out.println(startDate);
-        System.out.println(endDate);
-        return conventionService.readConventions(countryCode,LocalDate.parse(startDate),LocalDate.parse(endDate),confirmedLocation,pageable);
+            @RequestParam(name="end_date",required = false)  String endDate) {
+        return conventionService.readConventions(countryCode,LocalDate.parse(startDate),LocalDate.parse(endDate),pageable);
     }
 
     @PostMapping("/convention")

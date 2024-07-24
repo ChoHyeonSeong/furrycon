@@ -16,7 +16,6 @@ export const useConventionStore = defineStore('convention', {
     countryCode: '',
     startDate: formatDate(new Date()),
     endDate: formatDate(new Date(64000000000000)),
-    confirmedLocation: false,
     conventions: [] as ResponseConvention[],
     countries: countriesData
   }),
@@ -27,8 +26,7 @@ export const useConventionStore = defineStore('convention', {
         this.pageNum,
         this.countryCode,
         this.startDate,
-        this.endDate,
-        this.confirmedLocation
+        this.endDate
       )
       this.conventions = data.content
     },
@@ -39,10 +37,6 @@ export const useConventionStore = defineStore('convention', {
     setScheduleFilter(startDate: string, endDate: string) {
       this.startDate = startDate
       this.endDate = endDate
-      this.resetConventions()
-    },
-    setConfirmedLocationFilter(confirmedLocation: boolean) {
-      this.confirmedLocation = confirmedLocation
       this.resetConventions()
     },
 
