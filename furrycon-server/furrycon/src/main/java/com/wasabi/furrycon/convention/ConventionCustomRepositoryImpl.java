@@ -24,11 +24,11 @@ public class ConventionCustomRepositoryImpl implements ConventionCustomRepositor
                 .where(eqCountryCode(countryCode),
                         betweenSchedule(startDate,endDate))
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize() + 1)
+                .limit(pageable.getPageSize()+1)
                 .fetch();
         boolean hasNext = false;
-        if(conventions.size() > pageable.getPageSize()) {
-            conventions.remove(conventions.size());
+        if (conventions.size() > pageable.getPageSize()) {
+            conventions.remove(pageable.getPageSize());
             hasNext = true;
         }
         return new SliceImpl<>(conventions, pageable, hasNext);
