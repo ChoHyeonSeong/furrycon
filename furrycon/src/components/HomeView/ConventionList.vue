@@ -34,6 +34,23 @@
             </td>
           </tr>
         </template>
+        <tr>
+          <td>2024-09-11 ~ 2024-09-11</td>
+          <td class="flex-center">
+            <img src="/svg/kor.svg" alt="Logo" class="flag-box" />
+            <div class="code-box">KOR</div>
+          </td>
+          <td>Furry Joa</td>
+          <td>
+            <div>asdf</div>
+            <div>asdf</div>
+          </td>
+          <td>
+            <a href="#" target="_blank">
+              <svg-icon type="mdi" :path="homeIcon" class="icon-box vertical-center" />
+            </a>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -90,9 +107,9 @@ th {
 }
 .flag-box {
   width: 64px;
-  height: 64px;
+  height: 48px;
 }
 .code-box {
-  padding-left: 4px;
+  flex-grow: 1;
 }
 </style>
