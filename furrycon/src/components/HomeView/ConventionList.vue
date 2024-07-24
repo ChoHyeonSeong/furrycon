@@ -36,7 +36,9 @@
         </template>
       </tbody>
     </table>
-    <div ref="loadMore" class="loading flex-center"><h1>Loading...</h1></div>
+    <div ref="loadMore" v-if="!conventionStore.pageLast" class="loading flex-center">
+      <h1>Loading...</h1>
+    </div>
   </div>
 </template>
 
@@ -113,5 +115,8 @@ th {
 }
 .code-box {
   flex-grow: 1;
+}
+a {
+  color: black;
 }
 </style>
