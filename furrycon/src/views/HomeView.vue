@@ -1,7 +1,7 @@
 <template>
-  <header class="flex-center">
-    <div class="content-width">
-      <home-header />
+  <header>
+    <div class="section-line flex-center">
+      <home-header class="content-width" />
     </div>
   </header>
   <main class="flex-center">
@@ -24,5 +24,10 @@ testConnection('테스트 연결!')
 <style scoped>
 .content-width {
   width: 1280px;
+}
+
+.section-line {
+  width: 100vw;
+  border-bottom: 1px solid rgb(235, 235, 235);
 }
 </style>

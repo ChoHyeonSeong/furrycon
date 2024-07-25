@@ -19,12 +19,13 @@ public class ConventionCustomRepositoryImpl implements ConventionCustomRepositor
 
     @Override
     public Slice<ConventionEntity> findConventions(String countryCode, LocalDate startDate, LocalDate endDate, Pageable pageable) {
-        List<ConventionEntity> conventions =factory
+        List<ConventionEntity> conventions = factory
                 .selectFrom(conventionEntity)
                 .where(eqCountryCode(countryCode),
                         betweenSchedule(startDate,endDate))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1)
+                .orderBy(conventionEntity.startDate.asc(),conventionEntity.endDate.asc())
                 .fetch();
         boolean hasNext = false;
         if (conventions.size() > pageable.getPageSize()) {
