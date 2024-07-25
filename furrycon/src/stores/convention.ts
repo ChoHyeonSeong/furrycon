@@ -6,8 +6,6 @@ function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0')
 }
 function formatDate(conDate: Date) {
-  console.log(conDate)
-
   return [
     conDate.getFullYear(),
     padTo2Digits(conDate.getMonth() + 1),
