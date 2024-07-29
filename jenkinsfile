@@ -25,17 +25,18 @@ pipeline{
             steps {
                 echo 'Building Frontend'
                 // Node.js 설치 (NodeJS 플러그인 필요)
-                script {
-                    def nodeHome = tool name: "NodeJS 20.x", type: 'NodeJSInstallation'
-                    env.PATH = "${nodeHome}/bin:${env.PATH}"
+                dir('./furrycon'){
+                    script {
+                        def nodeHome = tool name: "NodeJS 20.x", type: 'NodeJSInstallation'
+                        env.PATH = "${nodeHome}/bin:${env.PATH}"
+                    }
+                    
+                    // 프로젝트 의존성 설치
+                    sh 'npm install'
+
+                    // 프로젝트 빌드
+                    sh 'npm run build'
                 }
-
-                // 프로젝트 의존성 설치
-                sh 'npm install'
-
-
-                // 프로젝트 빌드
-                sh 'npm run build'
             }
             post{
                 success { 
