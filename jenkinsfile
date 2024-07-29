@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages {
+        stage('Git Clone'){
+            steps{
+                echo 'Clonning Repository'
+                git branch: 'main', 
+                url: 'git@github.com:ChoHyeonSeong/furrycon.git'
+            }
+            post {
+                success { 
+                    echo 'Successfully Cloned Repository'
+                }
+                failure {
+                    error 'This pipeline stops here...'
+                }
+            }
+        }
+    }
+}
