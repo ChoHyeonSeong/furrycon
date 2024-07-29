@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    tools {
+        nodejs "Node20" // 여기서 "Node18"은 위에서 설정한 Node.js의 이름입니다.
+    }
     stages {
         stage('Hello World'){
             steps{
@@ -24,11 +27,6 @@ pipeline{
         stage('Frontend Build'){
             steps {
                 echo 'Building Frontend'
-                // Node.js 설치 (NodeJS 플러그인 필요)
-                script {
-                    def nodeHome = tool name: "NodeJS 20.x", type: 'NodeJSInstallation'
-                    env.PATH = "${nodeHome}/bin:${env.PATH}"
-                }
                 dir('./furrycon'){
                     // 프로젝트 의존성 설치
                     sh 'npm install'
