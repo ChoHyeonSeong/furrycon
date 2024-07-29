@@ -1,7 +1,7 @@
 pipeline{
     agent any
     tools {
-        nodejs "Node20" // 여기서 "Node18"은 위에서 설정한 Node.js의 이름입니다.
+        nodejs "Node20" // 여기서 "Node20"은 위에서 설정한 Node.js의 이름입니다.
     }
     stages {
         stage('Hello World'){
@@ -48,6 +48,7 @@ pipeline{
             steps{
                 echo 'Building Backend'
                 dir('./furrycon-server/furrycon'){
+                    sh 'chmod +x ./gradlew'
                     sh './gradlew clean build'
                 }
             }
