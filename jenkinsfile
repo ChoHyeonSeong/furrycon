@@ -1,6 +1,11 @@
 pipeline{
     agent any
     stages {
+        stage('Jenkins Hello'){
+            steps{
+                echo 'Hello World'
+            }
+        }
         stage('Git Clone'){
             steps{
                 echo 'Clonning Repository'
