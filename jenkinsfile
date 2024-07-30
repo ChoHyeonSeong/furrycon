@@ -67,6 +67,14 @@ pipeline{
                 sh 'scp ./furrycon/dist johs@johs.iptime.org:~/project/furrycon/frontend/'
                 sh 'scp ./furrycon-server/furrycon/build/libs/furrycon-0.0.1-SNAPSHOT.jar johs@johs.iptime.org:~/project/furrycon/backend/'
             }
+            post{
+                success { 
+                    echo 'Successfully Deploy Project'
+                }
+                failure{
+                    error 'This pipeline stops here...'
+                }
+            }
         }
     }
 }
