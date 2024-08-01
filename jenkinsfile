@@ -64,8 +64,12 @@ pipeline{
         stage('Project Deploy'){
             steps{
                 echo 'Deploying Project'
-                sh 'scp ./furrycon/dist johs@johs.iptime.org:~/project/furrycon/frontend/'
-                sh 'scp ./furrycon-server/furrycon/build/libs/furrycon-0.0.1-SNAPSHOT.jar johs@johs.iptime.org:~/project/furrycon/backend/'
+                dir('./furrycon'){
+                    sh 'scp -r ./dist/ johs@johs.iptime.org:~/project/furrycon/frontend/'
+                }
+                dir('./furrycon-server/furrycon'){
+                    sh 'scp ./build/libs/furrycon-0.0.1-SNAPSHOT.jar johs@johs.iptime.org:~/project/furrycon/backend/'
+                }
             }
             post{
                 success { 
