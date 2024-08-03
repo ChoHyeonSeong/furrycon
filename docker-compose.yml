@@ -1,0 +1,24 @@
+version: "3"
+services:
+  frontend:
+    container_name: furrycon-fe
+    restart: always
+    build: ./furrycon
+    networks:
+      - furrycon-network
+  backend:
+    container_name: furrycon-be
+    restart: always
+    build: ./furrycon-server/furrycon/build/libs
+    networks:
+      - furrycon-network
+  proxy:
+    container_name: furrycon-pr
+    restart: always
+    build: ./proxy
+    networks:
+      - furrycon-network
+
+networks:
+  furrycon-network:
+    name: furrycon-network
