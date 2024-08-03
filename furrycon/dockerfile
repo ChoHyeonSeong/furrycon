@@ -1,0 +1,6 @@
+FROM node:20
+RUN npm install -g http-server
+WORKDIR /app
+COPY ./dist ./dist
+EXPOSE 3001
+CMD ["http-server","dist","-p","3001"]
