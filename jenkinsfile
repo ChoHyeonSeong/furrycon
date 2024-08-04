@@ -63,7 +63,7 @@ pipeline{
         }
         stage('Project Deploy'){
             steps{
-                echo 'Deploying Project'
+                echo 'Deploying Project v1'
                 // dir('./furrycon'){
                 //     sh 'scp -r dist johs@johs.iptime.org:~/project/furrycon/frontend'
                 // }
